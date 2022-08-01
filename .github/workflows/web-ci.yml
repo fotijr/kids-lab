@@ -20,12 +20,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Install dependencies
-      - name: Run a one-line script
-      - uses: borales/actions-yarn@v3.0.0
+      - name: Install dependencies
+        uses: borales/actions-yarn@v3.0.0
         with:
           cmd: install
           
       - name: run
-        run: |
-          yarn run build
+        run: yarn run build
