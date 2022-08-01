@@ -26,10 +26,10 @@ jobs:
         with:
           node-version: 18
 
+      - uses: borales/actions-yarn@v3.0.0
+
       - name: Install dependencies
-        uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: install
+        run: yarn install --frozen-lockfile
           
       - name: run
         run: yarn run build
