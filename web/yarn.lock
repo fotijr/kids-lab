@@ -201,7 +201,7 @@
     "@babel/plugin-syntax-jsx" "^7.18.6"
     "@babel/types" "^7.18.6"
 
-"@babel/runtime@^7.7.6":
+"@babel/runtime@^7.7.6", "@babel/runtime@~7.18.0":
   version "7.18.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.9.tgz#b4fcfce55db3d2e5e080d2490f608a3b9f407f4a"
   integrity sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==
@@ -338,6 +338,27 @@
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
+
+"@uiw/color-convert@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@uiw/color-convert/-/color-convert-1.1.0.tgz#8027186e4f60c390c586954c8f2c7a2097c18f33"
+  integrity sha512-UelT6X9J1/fPj1aYrslHQC4UutxX93LCPo0o4CT2HD7YiXcfes1ICU7ZucKT1ewMkhPWbAInO2lUNhr4qYO0XQ==
+
+"@uiw/react-color-wheel@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@uiw/react-color-wheel/-/react-color-wheel-1.1.0.tgz#8b8ffd741b3debab37160205c4d3d29eb5a372c8"
+  integrity sha512-UnbgkylJ5kB2g9yDTJ44APbikK/kWP09BnKXtyppBp1t/cXXQBQB4MrP30VMWcCDcPNgCkk49bI6onY3RpBkCg==
+  dependencies:
+    "@babel/runtime" "~7.18.0"
+    "@uiw/color-convert" "1.1.0"
+    "@uiw/react-drag-event-interactive" "1.1.0"
+
+"@uiw/react-drag-event-interactive@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@uiw/react-drag-event-interactive/-/react-drag-event-interactive-1.1.0.tgz#4248b7576ba633e06f9ddb460ae95ba0043c468b"
+  integrity sha512-rXSCKW9V6pd+zkJMVSDEG+con5m5e+D6zj78HcCf5e5nj5xK66NmiTfS3FY3g8md8/GM/RgawMTmdVBEPOsASg==
+  dependencies:
+    "@babel/runtime" "~7.18.0"
 
 "@vitejs/plugin-react@^2.0.0":
   version "2.0.0"
