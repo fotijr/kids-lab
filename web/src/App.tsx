@@ -82,8 +82,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null!);
   setSignedInUser = setUser;
 
-  const login = async (user: User) => {
-    await userService.login(user);
+  const login = async (user: User, skipServer = false) => {
+    // skip server if we already have the cookie
+    if (!skipServer) {
+      await userService.login(user);
+    }
     setUser(user);
   };
 

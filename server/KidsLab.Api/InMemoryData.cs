@@ -10,9 +10,13 @@ namespace KidsLab.Api
     {
         public List<User> Users { get; set; }
 
+        public HashSet<string> HubConnections { get; set; }
+
+
         public InMemoryData()
         {
             Users = new();
+            HubConnections = new();
         }
 
         public User? GetUser(Guid id)

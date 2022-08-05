@@ -6,6 +6,10 @@ h1 {
     @apply mb-6 text-3xl text-center;
 }
 
+h3 {
+    @apply mb-1 text-xl text-center;
+}
+
 a {
     @apply self-center;
 }
@@ -38,7 +42,7 @@ div.locked::after {
 }
 
 .lab-grid>div {
-    @apply m-4;
+    @apply m-4 mb-8;
 }
 
 /* Hide steppers in number inputs */

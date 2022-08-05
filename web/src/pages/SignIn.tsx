@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Wheel from '@uiw/react-color-wheel';
 import { useAuth } from '../App';
 import { User } from '../models';
 import UserThumbnail from '../components/UserThumbnail';
+import { userService } from '../services/user';
 
 function SignIn() {
   const auth = useAuth();
@@ -12,6 +13,16 @@ function SignIn() {
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 90, a: 1 });
   const location = useLocation();
   const from = (location as any).state?.from?.pathname || "/";
+
+  useEffect(() => {
+    userService.get()
+      .then(user => {
+        if (user) {
+          auth.login(user, true);
+          navigate(from, { replace: true });
+        }
+      });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
