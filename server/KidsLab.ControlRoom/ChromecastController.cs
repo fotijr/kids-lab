@@ -9,20 +9,27 @@ namespace KidsLab.ControlRoom
 
         public async Task Initialize()
         {
-            Console.WriteLine("Looking for Chromecasts...");
-            var locator = new MdnsChromecastLocator();
-            var chromecasts = await locator.FindReceiversAsync();
-
-            Console.WriteLine($"Found {chromecasts.Count()} Chromecasts.");
-            var chromecast = chromecasts.FirstOrDefault();
-            if (chromecast == null)
+            try
             {
-                Console.WriteLine("🚧 No Chromecast found! 🚧");
-                return;
+                Console.WriteLine("Looking for Chromecasts...");
+                var locator = new MdnsChromecastLocator();
+                var chromecasts = await locator.FindReceiversAsync();
+
+                Console.WriteLine($"Found {chromecasts.Count()} Chromecasts.");
+                var chromecast = chromecasts.FirstOrDefault();
+                if (chromecast == null)
+                {
+                    Console.WriteLine("🚧 No Chromecast found! 🚧");
+                    return;
+                }
+                await _client.ConnectChromecast(chromecast);
+                await _client.LaunchApplicationAsync("B3419EF5");
+                var backgroundTask = RotateGifsAsync();
             }
-            await _client.ConnectChromecast(chromecast);
-            await _client.LaunchApplicationAsync("B3419EF5");
-            var backgroundTask = RotateGifsAsync();
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Failed to connect to Chromecasts ❌");
+            }            
         }
 
         private async Task RotateGifsAsync()
@@ -35,6 +42,7 @@ namespace KidsLab.ControlRoom
                 fireworks, mickeyWhistle, mickeyDonaldSwinging, dancingGroot
             };
             var gifIndex = 0;
+
             while (true)
             {
                 var media = new Sharpcaster.Models.Media.Media

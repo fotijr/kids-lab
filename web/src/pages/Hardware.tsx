@@ -2,7 +2,7 @@ function Hardware() {
 
   return (
     <div>
-      <h1 className='text-2xl text-center'>Hardware</h1>
+      <h1>Hardware</h1>
     </div>
   )
 }

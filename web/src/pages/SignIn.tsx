@@ -8,7 +8,7 @@ import UserThumbnail from '../components/UserThumbnail';
 function SignIn() {
   const auth = useAuth();
   let navigate = useNavigate();
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState<User>({ color: '#E6E6E6'} as User);
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 90, a: 1 });
   const location = useLocation();
   const from = (location as any).state?.from?.pathname || "/";
@@ -28,7 +28,7 @@ function SignIn() {
 
   return (
     <div className='mx-auto max-w-xl'>
-      <h1 className='text-2xl text-center'>Sign in</h1>
+      <h1>Sign in</h1>
       <form onSubmit={(e) => { handleSubmit(e) }}>
         <div className='mb-8'>
           <label
@@ -68,10 +68,8 @@ function SignIn() {
             <Wheel
               color={hsva}
               onChange={(color) => {
-                console.log(color.hex);
                 setHsva(color.hsva);
                 userDataChange('color', color.hex);
-                //userDataChange('color', color.hsva);
               }}
             />
           </div>

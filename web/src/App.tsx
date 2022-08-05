@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,10 +11,22 @@ import SignIn from './pages/SignIn';
 import { AuthContextType, User } from './models';
 import { userService } from './services/user';
 import Me from './pages/Me';
+import ControlPanel from './pages/ControlPanel';
 
 export const AuthContext = createContext<AuthContextType>(null!);
 
+let setSignedInUser: (user: User) => void;
+
 function App() {
+  useEffect(() => {
+    userService.get()
+      .then(user => {
+        if (user) {
+          setSignedInUser(user);
+        }
+      });
+  }, []);
+
   return (
     <AuthProvider>
       <div>
@@ -28,6 +40,11 @@ function App() {
             <Route path="lab" element={
               <RequireAuth>
                 <Lab />
+              </RequireAuth>
+            } />
+            <Route path="control-panel" element={
+              <RequireAuth>
+                <ControlPanel />
               </RequireAuth>
             } />
             <Route path="me" element={
@@ -54,18 +71,16 @@ function RequireAuth({ children }: { children: JSX.Element }) {
 
   if (!auth?.user) {
     // Redirect them to the /login page, but save the current location they were
-    // trying to go to when they were redirected. This allows us to send them
-    // along to that page after they login, which is a nicer user experience
-    // than dropping them off on the home page.
+    // trying to go to so we can redirect after sign in.
     return <Navigate to="/sign-in" state={{ from: location }} replace />;
   }
 
   return children;
 }
 
-
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User>(null!);
+  setSignedInUser = setUser;
 
   const login = async (user: User) => {
     await userService.login(user);
@@ -73,7 +88,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = () => {
-    setUser(null);
+    setUser(null!);
     return userService.logout();
   };
 

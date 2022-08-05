@@ -16,6 +16,8 @@ function Footer() {
       <Link to="/lab" className='px-4 py-2'>
         Lab
       </Link>
+      <a href="https://github.com/fotijr/kids-lab" target="_blank">View code</a>
+      
     </div>
   );
 }

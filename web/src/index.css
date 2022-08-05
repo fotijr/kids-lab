@@ -2,9 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+    @apply mb-6 text-3xl text-center;
+}
+
+a {
+    @apply self-center;
+}
+
+p {
+    @apply mb-4;
+}
+
+div.locked {
+    position: relative;
+}
+
+div.locked::after {
+    content: "Request control";
+    position: absolute;
+    line-height: 10em;
+    text-align: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 2em;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-image: linear-gradient(120deg, #eaee44, #33d0ff); */
+    background: rgb(2, 0, 36);
+    background: radial-gradient(circle, rgba(2, 0, 36, 0.8323923319327731) 13%, rgba(63, 63, 147, 0.8463979341736695) 66%, rgba(0, 212, 255, 1) 100%);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.lab-grid>div {
+    @apply m-4;
+}
+
 /* Hide steppers in number inputs */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }

@@ -28,15 +28,26 @@ public class DataUpdateService
     /// </summary>
     /// <param name="update"></param>
     /// <returns></returns>
-    public async Task SendUpdate(DataUpdate update)
+    public async Task<bool> SendUpdate(DataUpdate update)
     {
-        await _connection.InvokeAsync("Update", update);
+        try
+        {
+            await _connection.InvokeAsync("Update", update);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Send failed: {ex.Message}");
+            return false;
+        }
     }
 
     private HubConnection BuildHubConnection()
     {
+        var local = "http://localhost:5036/hubs/lab";
+        var prod = "https://kids-lab.fotijr.com/api/hubs/lab";
         var hubConnection = new HubConnectionBuilder()
-            .WithUrl("http://localhost:5036/lab")
+            .WithUrl(local)
             .AddMessagePackProtocol()
             .Build();
 

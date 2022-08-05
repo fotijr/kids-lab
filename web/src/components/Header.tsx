@@ -21,6 +21,9 @@ function Header() {
       <Link to="/lab" className='px-4 py-2 mx-6'>
         Lab
       </Link>
+      <Link to="/control-panel" className='px-4 py-2 mx-6'>
+        Control Panel
+      </Link>
       <div className='ml-auto'>
         <UserSummary />
       </div>
