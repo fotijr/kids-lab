@@ -1,7 +1,19 @@
+/// <reference types="vite/client" />
+
 import axios from 'axios';
 
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
+export const ApiBase = import.meta.env.VITE_API_URL;
+
 const axiosBase = axios.create({
-  baseURL: 'http://localhost:5036', // process.env.VUE_APP_API_URL,
+  baseURL: ApiBase,
   // needed so API serves 401 instead of attempting to redirect to login page
   headers: {
     'X-Requested-With': 'XMLHttpRequest',

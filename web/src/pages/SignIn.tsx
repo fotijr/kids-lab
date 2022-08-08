@@ -1,17 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Wheel from '@uiw/react-color-wheel';
 import { useAuth } from '../App';
 import { User } from '../models';
 import UserThumbnail from '../components/UserThumbnail';
+import { userService } from '../services/user';
 
 function SignIn() {
   const auth = useAuth();
   let navigate = useNavigate();
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState<User>({ color: '#E6E6E6'} as User);
   const [hsva, setHsva] = useState({ h: 0, s: 0, v: 90, a: 1 });
   const location = useLocation();
   const from = (location as any).state?.from?.pathname || "/";
+
+  useEffect(() => {
+    userService.get()
+      .then(user => {
+        if (user) {
+          auth.login(user, true);
+          navigate(from, { replace: true });
+        }
+      });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +39,7 @@ function SignIn() {
 
   return (
     <div className='mx-auto max-w-xl'>
-      <h1 className='text-2xl text-center'>Sign in</h1>
+      <h1>Sign in</h1>
       <form onSubmit={(e) => { handleSubmit(e) }}>
         <div className='mb-8'>
           <label
@@ -68,10 +79,8 @@ function SignIn() {
             <Wheel
               color={hsva}
               onChange={(color) => {
-                console.log(color.hex);
                 setHsva(color.hsva);
                 userDataChange('color', color.hex);
-                //userDataChange('color', color.hsva);
               }}
             />
           </div>

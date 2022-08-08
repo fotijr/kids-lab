@@ -11,7 +11,7 @@ function Server() {
       <div>
         Color: <span style={{ color: auth.user.color }}>{auth.user.color}</span>
       </div>
-      <div>Age: X</div>
+      <div>Age: {auth.user.age}</div>
       <div className='mt-8'>
         <button className='px-4 py-2 border' onClick={() => auth.logout() }>Sign out</button>
       </div>

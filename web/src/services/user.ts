@@ -1,3 +1,4 @@
+import axios from '../utils/axios';
 import { User } from '../models';
 
 function timeout(ms: number) {
@@ -5,15 +6,20 @@ function timeout(ms: number) {
 }
 
 const userService = {
-    authenticated: false,
+    async get() {
+        try {
+            const { data } = await axios.get<User>('account');
+            return data;
+        } catch (error) {
+            return null;
+        }
+    },
     async login(user: User) {
-        userService.authenticated = true;
-        await timeout(400);
+        const serverUser = await axios.post<User>('account/login', user);
     },
     async logout() {
-        userService.authenticated = false;
-        await timeout(400);
-    },
+        await axios.post('account/logout');
+    }
 };
 
 export { userService };

@@ -3,9 +3,8 @@
 Console.WriteLine("Starting up the Control Room...");
 
 var updater = new DataUpdateService();
-var chromecast = new ChromecastController();
 
-await Task.WhenAll(updater.Initialize(), chromecast.Initialize());
+await updater.Initialize();
 
 while (true)
 {

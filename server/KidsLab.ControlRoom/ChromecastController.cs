@@ -6,51 +6,56 @@ namespace KidsLab.ControlRoom
     public class ChromecastController
     {
         private ChromecastClient _client = new();
+        private Dictionary<string, string> gifs = new()
+        {
+            ["fireworks"] = "https://media.giphy.com/media/YLishCv852mWucndDf/giphy.gif",
+            ["happy"] = "https://media.giphy.com/media/cIxxFKOTCPwX9DUk7L/giphy.gif",
+            ["friends"] = "https://media.giphy.com/media/3Hz6PIHppEkquEiSBt/giphy.gif",
+            ["mike"] = "https://media.giphy.com/media/Zy79ySAjpMynS/giphy.gif",
+            ["encanto"] = "https://media.giphy.com/media/xc7bHMhVwyITq8I6Gx/giphy.gif",
+            ["elsa"] = "https://media.giphy.com/media/D9imjPrFxGcF2/giphy.gif",
+        };
 
         public async Task Initialize()
         {
-            Console.WriteLine("Looking for Chromecasts...");
-            var locator = new MdnsChromecastLocator();
-            var chromecasts = await locator.FindReceiversAsync();
-
-            Console.WriteLine($"Found {chromecasts.Count()} Chromecasts.");
-            var chromecast = chromecasts.FirstOrDefault();
-            if (chromecast == null)
+            try
             {
-                Console.WriteLine("🚧 No Chromecast found! 🚧");
-                return;
+                Console.WriteLine("Looking for Chromecasts...");
+                var locator = new MdnsChromecastLocator();
+                var chromecasts = await locator.FindReceiversAsync();
+
+                Console.WriteLine($"Found {chromecasts.Count()} Chromecasts.");
+                var chromecast = chromecasts.FirstOrDefault();
+                if (chromecast == null)
+                {
+                    Console.WriteLine("🚧 No Chromecast found! 🚧");
+                    return;
+                }
+                await _client.ConnectChromecast(chromecast);
+                await _client.LaunchApplicationAsync("B3419EF5");
+                await PlayGifAsync("happy");
             }
-            await _client.ConnectChromecast(chromecast);
-            await _client.LaunchApplicationAsync("B3419EF5");
-            var backgroundTask = RotateGifsAsync();
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ Failed to connect to Chromecasts ❌");
+            }
         }
 
-        private async Task RotateGifsAsync()
+        public async Task PlayGifAsync(string id)
         {
-            var fireworks = "https://media.giphy.com/media/YLishCv852mWucndDf/giphy.gif";
-            var mickeyWhistle = "https://media.giphy.com/media/cIxxFKOTCPwX9DUk7L/giphy.gif";
-            var mickeyDonaldSwinging = "https://media.giphy.com/media/3Hz6PIHppEkquEiSBt/giphy.gif";
-            var dancingGroot = "https://sciencefiction.com/wp-content/uploads/2017/04/dancing-baby-groot.gif";
-            var gifs = new string[] {
-                fireworks, mickeyWhistle, mickeyDonaldSwinging, dancingGroot
-            };
-            var gifIndex = 0;
-            while (true)
+            if (gifs.TryGetValue(id, out var url))
             {
-                var media = new Sharpcaster.Models.Media.Media
-                {
-                    ContentUrl = gifs[gifIndex]
-                };
-                await _client.GetChannel<Sharpcaster.Interfaces.IMediaChannel>().LoadAsync(media);
-                gifIndex++;
-                if (gifIndex >= gifs.Length)
-                {
-                    gifIndex = 0;
-                }
-                await Task.Delay(15000);
-
-
+                await PlayUrlAsync(url);
             }
+        }
+
+        private async Task PlayUrlAsync(string url)
+        {
+            var media = new Sharpcaster.Models.Media.Media
+            {
+                ContentUrl = url
+            };
+            await _client.GetChannel<Sharpcaster.Interfaces.IMediaChannel>().LoadAsync(media);
         }
     }
 }

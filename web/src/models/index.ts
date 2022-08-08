@@ -1,4 +1,5 @@
 export interface DataUpdate {
+    id?: number;
     device: string;
     value: string;
 }
@@ -12,6 +13,6 @@ export interface User {
 
 export interface AuthContextType {
     user: User;
-    login: (user: User) => Promise<void>;
+    login: (user: User, skipServer?: boolean) => Promise<void>;
     logout: () => Promise<void>;
 }
