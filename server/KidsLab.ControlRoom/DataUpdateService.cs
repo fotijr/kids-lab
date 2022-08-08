@@ -53,7 +53,7 @@ public class DataUpdateService
         var local = "http://localhost:5036/hubs/lab";
         var prod = "https://kids-lab.fotijr.com/api/hubs/lab";
         var hubConnection = new HubConnectionBuilder()
-            .WithUrl(local)
+            .WithUrl(prod)
             .AddMessagePackProtocol()
             .Build();
 

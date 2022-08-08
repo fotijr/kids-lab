@@ -32,21 +32,27 @@ function Lab() {
   });
 
   const sounds: InputItem[] = [
-    { id: 'thank-you', text: 'Thank you', color: 'yellow' },
-    { id: 'oh-boy', text: 'Oh boy', color: 'red' },
-    { id: 'giggle', text: 'Laughing', color: 'purple' },
-    { id: 'all-day', text: "I won't give up.", color: 'green' },
-    { id: 'roger-roger', text: 'Roger roger', color: 'orange' },
-    { id: 'singing', text: 'Singing', color: 'pink' }
+    { id: 'youre-welcome.mp3', text: 'What can I say?', color: '#d6d623' },
+    { id: 'applause.mp3', text: '👏 👏 👏', color: 'red' },
+    { id: 'sad-trombone.mp3', text: 'Sad trombone', color: 'purple' },
+    { id: 'hello-there.mp3', text: "Hello there 👋", color: 'green' },
+    { id: 'roger-roger.mp3', text: 'Roger roger', color: 'orange' },
+    { id: 'lion-roar.mp3', text: 'Roar 🦁', color: 'pink' },
+    { id: 'assemble.mp3', text: 'Avengers...', color: '#d6d623' },
+    { id: 'bruh.mp3', text: 'Bruh', color: 'red' },
+    { id: 'da-vinky.mp3', text: 'Who painted the Mona Lisa?', color: 'purple' },
+    { id: 'dramatic.mp3', text: "Dramatic", color: 'green' },
+    { id: 'laughing.mp3', text: '😂😂😂', color: 'orange' },
+    { id: 'no.mp3', text: 'Nooooooooo!', color: 'pink' },
   ];
 
   const gifs: InputItem[] = [
     { id: 'happy', text: 'Happy 😃', color: 'red' },
     { id: 'fireworks', text: 'Fireworks 🎆', color: 'pink' },
-    { id: 'friends', text: 'Friends 🤗', color: 'yellow' },
-    { id: 'groot', text: 'Dancing', color: 'green' },
-    { id: 'that', text: 'That', color: 'orange' },
-    { id: 'the other', text: 'The other', color: 'purple' }
+    { id: 'friends', text: 'Friends 🤗', color: '#d6d623' },
+    { id: 'mike', text: 'Mike Wazowski', color: 'green' },
+    { id: 'encanto', text: 'Encanto', color: 'orange' },
+    { id: 'elsa', text: 'Elsa', color: 'purple' }
   ];
 
   useEffect(() => {
@@ -159,14 +165,16 @@ function Lab() {
         </div>
         <div onClick={() => requestGroupControl(groups.sounds.locked, 'sounds')} className={`px-2${groups.sounds.locked ? ' locked' : ''}`}>
           <h3>Sound board</h3>
-          {sounds.map((s) => (
-            <button key={s.id} onClick={() => sendDeviceInput('sounds', s.id)}
-              className='block py-4 mb-1 w-full' style={{ backgroundColor: s.color }}>{s.text}</button>
-          ))}
+          <div className='text-white max-h-72'>
+            {sounds.map((s) => (
+              <button key={s.id} onClick={() => sendDeviceInput('sounds', s.id)}
+                className='block py-4 mb-1 w-full' style={{ backgroundColor: s.color }}>{s.text}</button>
+            ))}
+          </div>
         </div>
         <div onClick={() => requestGroupControl(groups.gifs.locked, 'gifs')} className={`px-2${groups.gifs.locked ? ' locked' : ''}`}>
           <h3>GIF board</h3>
-          <div className='text-white'>
+          <div className='text-white max-h-72'>
             {gifs.map((g) => (
               <button key={g.id} onClick={() => sendDeviceInput('gifs', g.id)}
                 className='block py-4 mb-1 w-full' style={{ backgroundColor: g.color }}>{g.text}</button>
