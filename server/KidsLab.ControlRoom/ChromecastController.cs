@@ -11,7 +11,9 @@ namespace KidsLab.ControlRoom
             ["fireworks"] = "https://media.giphy.com/media/YLishCv852mWucndDf/giphy.gif",
             ["happy"] = "https://media.giphy.com/media/cIxxFKOTCPwX9DUk7L/giphy.gif",
             ["friends"] = "https://media.giphy.com/media/3Hz6PIHppEkquEiSBt/giphy.gif",
-            ["groot"] = "https://sciencefiction.com/wp-content/uploads/2017/04/dancing-baby-groot.gif"
+            ["mike"] = "https://media.giphy.com/media/Zy79ySAjpMynS/giphy.gif",
+            ["encanto"] = "https://media.giphy.com/media/xc7bHMhVwyITq8I6Gx/giphy.gif",
+            ["elsa"] = "https://media.giphy.com/media/D9imjPrFxGcF2/giphy.gif",
         };
 
         public async Task Initialize()
