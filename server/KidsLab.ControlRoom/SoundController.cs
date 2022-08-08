@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using CliWrap;
 using LibVLCSharp.Shared;
 
 namespace KidsLab.ControlRoom
@@ -12,17 +13,20 @@ namespace KidsLab.ControlRoom
         /// <summary>
         /// Root directory of files to play
         /// </summary>
-        static readonly string FilesRoot = "/path";
+        static readonly string FilesRoot = "/Users/dominic/Documents";
 
-        public static void Play(string file)
+        public static async Task PlayAsync(string file)
         {
             try
             {
-                using var libvlc = new LibVLC(enableDebugLogs: true);
-                using var media = new Media(libvlc, new Uri(Path.Combine(FilesRoot, file)));
-                using var mediaplayer = new MediaPlayer(media);
-
-                mediaplayer.Play();
+                var path = Path.Combine(FilesRoot, file);
+                Console.WriteLine(path);
+                await Cli.Wrap("afplay")
+                     .WithValidation(CommandResultValidation.None)
+                     .WithArguments(a => a
+                         .Add(path)
+                     )
+                    .ExecuteAsync();
             }
             catch (Exception ex)
             {

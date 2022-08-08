@@ -84,6 +84,8 @@ public class DataUpdateService
                 break;
             case "sounds":
                 // play sounds
+                await SoundController.PlayAsync(value);
+                break;
             case "gifs":
                 // new gif for projector selected
                 await _chromecast.PlayGifAsync(value);
